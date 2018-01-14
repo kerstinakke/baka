@@ -21,6 +21,5 @@ public class PlayerMovement : MonoBehaviour {
 	void Move() {
 		playerDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
 		rigidBody.MovePosition (transform.position + playerDirection * speed * Time.deltaTime);
-		print (playerDirection);
 	}
 }
