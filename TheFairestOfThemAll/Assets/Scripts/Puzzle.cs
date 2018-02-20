@@ -29,11 +29,21 @@ public class Puzzle : MonoBehaviour {
 				Vector3 pos = m_Player.transform.position;
 				print (pos+" "+correctPlayerPos);
 				if (Mathf.Abs (pos.x - correctPlayerPos.x) <= 0.1 && Mathf.Abs (pos.z - correctPlayerPos.z) <= 0.1) {
-					m_Solved = true;
-					gameObject.transform.Find ("whole").gameObject.SetActive (true);
+					if (AllSet()) {
+						m_Solved = true;
+						gameObject.transform.Find ("whole").gameObject.SetActive (true);
+					}
 				}
 				m_Checked = true;
 			}
 		}
+	}
+
+	private bool AllSet(){
+		for (int i = 0; i < movingPieces.Length; i++) {
+			if (!movingPieces [i].isInPlace)
+				return false;
+		}
+		return true;
 	}
 }
