@@ -5,10 +5,10 @@ using UnityEngine;
 public class Puzzle : MonoBehaviour {
 
 	public Vector3 correctPlayerPos;
-	public Piece[] movingPieces;
+	public MovablePiece[] movingPieces;
 
 	private bool m_IsFocus = false;
-	private bool m_Checked = false;
+	private float m_PlayerError = 0.2f;
 	public bool m_Solved = false;
 	private GameObject m_Player;
 
@@ -22,26 +22,23 @@ public class Puzzle : MonoBehaviour {
 		if (!m_Solved) {
 			bool focusing = Input.GetKey (KeyCode.F);
 			if (!m_IsFocus && focusing) {
-				m_Checked = false;
-			}
-			m_IsFocus = focusing;
-			if (m_IsFocus && !m_Checked) {
 				Vector3 pos = m_Player.transform.position;
 				print (pos+" "+correctPlayerPos);
-				if (Mathf.Abs (pos.x - correctPlayerPos.x) <= 0.1 && Mathf.Abs (pos.z - correctPlayerPos.z) <= 0.1) {
+				if (Mathf.Abs (pos.x - correctPlayerPos.x) <= 0.2 && Mathf.Abs (pos.z - correctPlayerPos.z) <= 0.2) {
+					m_Player.transform.position = correctPlayerPos;
 					if (AllSet()) {
 						m_Solved = true;
 						gameObject.transform.Find ("whole").gameObject.SetActive (true);
 					}
 				}
-				m_Checked = true;
 			}
+			m_IsFocus = focusing;
 		}
 	}
 
 	private bool AllSet(){
 		for (int i = 0; i < movingPieces.Length; i++) {
-			if (!movingPieces [i].isInPlace)
+			if (!movingPieces [i].CheckPlace())
 				return false;
 		}
 		return true;
