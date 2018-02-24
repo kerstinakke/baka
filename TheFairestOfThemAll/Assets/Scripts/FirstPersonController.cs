@@ -116,14 +116,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_WasHoldingDown = EDown;
         }
 
-
         private void PlayLandingSound()
         {
             m_AudioSource.clip = m_LandSound;
             m_AudioSource.Play();
             m_NextStep = m_StepCycle + .5f;
         }
-
 
         private void FixedUpdate()
         {	

@@ -8,10 +8,6 @@ public class MovablePiece: Movable {
 	public Vector3 correctRot;
 	public float m_PosError = 2f;
 	public float m_RotError = 5f;
-	// Use this for initialization
-	void Start () {
-
-	}
 
 	public bool CheckPlace(){
 		Vector3 currentPos = transform.position;
@@ -25,7 +21,6 @@ public class MovablePiece: Movable {
 				&& Mathf.Abs (correctRot.z - currentRot.z) <= m_RotError) {
 				transform.eulerAngles = correctRot;
 				transform.localPosition = correctPos;
-				print ("yay");
 				return true;
 			}
 		}
