@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class Movable : MonoBehaviour {
 
-	private Transform m_Parent;
+	private Vector3 m_offset;
+	private Collider m_collider;
 
-	// Use this for initialization
-	void Start () {
-		m_Parent = transform.parent;
+	public void Start(){
+		m_collider = GetComponent<Collider> ();
 	}
-	
-	public void LetGo(){
-		transform.parent = m_Parent;
+
+	public void Pickup (Vector3 pos){
+		m_offset = transform.position-pos;
+		m_collider.isTrigger = true;
 	}
+
+	public void LetGo (){
+		m_collider.isTrigger = false;
+	}
+
+	public void Follow(Vector3 pos){
+		transform.position = pos+m_offset;
+	}
+
 }
