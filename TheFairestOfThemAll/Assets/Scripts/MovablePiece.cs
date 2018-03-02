@@ -10,9 +10,9 @@ public class MovablePiece: Movable {
 	public bool CheckPlace(){
 		Vector3 currentPos = transform.position;
 		Vector3 currentRot = transform.eulerAngles;
-		if (Mathf.Abs (correctPos.x - currentPos.x) <= PosError 
-			&& Mathf.Abs (correctPos.y - currentPos.y) <= PosError 
-			&& Mathf.Abs (correctPos.z - currentPos.z)<= PosError) {
+		if (Mathf.Abs (correctPos.x - currentPos.x) <= posError 
+			&& Mathf.Abs (correctPos.y - currentPos.y) <= posError 
+			&& Mathf.Abs (correctPos.z - currentPos.z)<= posError) {
 			if (Mathf.Abs (correctRot.x - currentRot.x) <= RotError 
 				&& Mathf.Abs (correctRot.y - currentRot.y) <= RotError
 				&& Mathf.Abs (correctRot.z - currentRot.z) <= RotError) {

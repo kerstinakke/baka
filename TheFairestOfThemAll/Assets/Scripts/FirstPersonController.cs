@@ -81,10 +81,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		{
 			RotateView ();
 
-			if (Holding != null) {
+			if ((Holding as MovablePiece) != null) {
 				bool RDown = CrossPlatformInputManager.GetButtonDown ("ToggleRotate");
 				if (!WasHoldingRDown && RDown) {
 					RotateMode = !RotateMode;
+					HoldEffect.GetComponent<OverlayEffects> ().SwitchSprite ();
 					print("rotate Toggle!");
 				}
 				WasHoldingRDown = RDown;
@@ -169,7 +170,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				MoveDir.x = desiredMove.x * speed;
 				MoveDir.z = desiredMove.z * speed;
 			} else {
-				Holding.Rotate (CrossPlatformInputManager.GetAxis ("Horizontal"), CrossPlatformInputManager.GetAxis ("Vertical"));
+				Holding.Rotate (CrossPlatformInputManager.GetAxisRaw("Horizontal"), CrossPlatformInputManager.GetAxisRaw ("Vertical"));
 				speed = 0;
 				MoveDir.x = 0;
 				MoveDir.z = 0;

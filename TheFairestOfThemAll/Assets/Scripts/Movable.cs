@@ -7,13 +7,16 @@ public class Movable : MonoBehaviour {
 	private Vector3 offset;
 	private Collider collider;
 	private bool isRotating;
+	private Transform body;
 	[SerializeField] protected Vector3 correctPos;
-	[SerializeField] protected float PosError = 0.2f;
-	[SerializeField] protected float RotAngle = 90f;
+	[SerializeField] protected float posError = 0.2f;
+	[SerializeField] protected float vertRotAngle = 0f;
+	[SerializeField] protected float horRotAngle = 90f;
 
 	public void Start(){
 		collider = GetComponent<Collider> ();
 		isRotating = false;
+		body = transform.Find ("Body");
 	}
 
 	public void Pickup (Vector3 pos){
@@ -30,15 +33,16 @@ public class Movable : MonoBehaviour {
 	}
 
 	public void Rotate(float horizontal, float vertical){
-		print (horizontal + " " + vertical);
-		transform.eulerAngles += new Vector3(0,horizontal*RotAngle,vertical*RotAngle);
+		Vector3 rotDir = new Vector3 (0, horizontal * horRotAngle, vertical * vertRotAngle);
+		if(!isRotating && rotDir.magnitude!=0)
+			StartCoroutine(ExecuteRotation( body.eulerAngles, body.eulerAngles + rotDir,0.5f));
 	}
 
 	protected IEnumerator ExecuteRotation(Vector3 from, Vector3 to, float duration)
 	{
 		if (duration < float.Epsilon)
 		{
-			transform.eulerAngles = to;
+			body.eulerAngles = to;
 			yield break;
 		}
 
@@ -47,7 +51,7 @@ public class Movable : MonoBehaviour {
 		while (agregate < 1f)
 		{
 			agregate += Time.deltaTime / duration;
-			transform.eulerAngles = Vector3.Lerp(from, to, agregate);
+			body.eulerAngles = Vector3.Lerp(from, to, agregate);
 			yield return null;
 		}
 		isRotating = false;
