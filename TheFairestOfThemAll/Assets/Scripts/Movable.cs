@@ -8,9 +8,9 @@ public class Movable : MonoBehaviour {
 	private Collider collider;
 	private bool isRotating;
 	private Transform body;
+	private float speed = 0.5f;
 	[SerializeField] protected Vector3 correctPos;
 	[SerializeField] protected float posError = 0.2f;
-	[SerializeField] protected float vertRotAngle = 0f;
 	[SerializeField] protected float horRotAngle = 90f;
 
 	public void Start(){
@@ -26,16 +26,23 @@ public class Movable : MonoBehaviour {
 
 	public void LetGo (){
 		collider.isTrigger = false;
+		AidLanding ();
 	}
 
 	public void Follow(Vector3 pos){
 		transform.position = pos+offset;
 	}
 
-	public void Rotate(float horizontal, float vertical){
-		Vector3 rotDir = new Vector3 (0, horizontal * horRotAngle, vertical * vertRotAngle);
+	public void Adjust(float horizontal, float vertical){
+		Vector3 rotDir = new Vector3 (0, horizontal * horRotAngle,0);
 		if(!isRotating && rotDir.magnitude!=0)
 			StartCoroutine(ExecuteRotation( body.eulerAngles, body.eulerAngles + rotDir,0.5f));
+		if(vertical!=0){
+			if (Mathf.Abs (offset.y) < 1f) {
+				offset += new Vector3 (0, vertical * speed * Time.deltaTime);
+				print (vertical * speed * Time.deltaTime);
+			}
+		}
 	}
 
 	protected void AidLanding(){
@@ -64,4 +71,6 @@ public class Movable : MonoBehaviour {
 		}
 		isRotating = false;
 	}
+		
+
 }
