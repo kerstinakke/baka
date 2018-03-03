@@ -116,7 +116,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 					RaycastHit hitInfo;
 					if (Physics.Raycast (Camera.transform.position, Camera.transform.forward, out hitInfo, 2)) {
 						GameObject aming = hitInfo.collider.gameObject;
-						Movable movingScript = aming.GetComponent<Movable> ();
+						Movable movingScript = aming.GetComponentInParent<Movable> ();
 						if (movingScript != null) {
 							WalkSpeed = 1f;
 							Holding = movingScript;
@@ -124,6 +124,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 							MovableBeacon beacon = Holding as MovableBeacon;
 							if (beacon != null) {
 								beacon.Inactivate();
+								beacon.SetCameraActive (true);
+								Camera.enabled = false;
 							}
 							HoldEffect.SetActive (true);
 							print ("Pickup");
@@ -134,6 +136,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 					MovableBeacon beacon = Holding as MovableBeacon;
 					if (beacon != null) {
 						beacon.LetGo (transform.position);
+						Camera.enabled = true;
+						beacon.SetCameraActive (false);
 					}else 
 						Holding.LetGo ();
 					Holding = null;

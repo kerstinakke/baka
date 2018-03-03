@@ -14,7 +14,7 @@ public class Movable : MonoBehaviour {
 	[SerializeField] protected float horRotAngle = 90f;
 
 	public void Start(){
-		collider = GetComponent<Collider> ();
+		collider = GetComponentInChildren<Collider> ();
 		isRotating = false;
 		body = transform.Find ("Body");
 	}
