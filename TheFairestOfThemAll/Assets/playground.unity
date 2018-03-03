@@ -488,10 +488,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bef5d62d78cb2444a1a2f9fcdfcaaf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movingPieces:
-  - {fileID: 798260032}
-  template: {fileID: 2800000, guid: f565dbc3e68bbff41934871359143389, type: 3}
+  level: 0
   Solved: 0
+  accuracy: 0.9
 --- !u!4 &798260029
 Transform:
   m_ObjectHideFlags: 0
@@ -688,7 +687,7 @@ GameObject:
   - component: {fileID: 1238068927}
   m_Layer: 0
   m_Name: mirror1
-  m_TagString: Untagged
+  m_TagString: Mirror
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

@@ -38,6 +38,14 @@ public class Movable : MonoBehaviour {
 			StartCoroutine(ExecuteRotation( body.eulerAngles, body.eulerAngles + rotDir,0.5f));
 	}
 
+	protected void AidLanding(){
+		if (Mathf.Abs (correctPos.x - transform.position.x) <= posError 
+			&& Mathf.Abs (correctPos.y - transform.position.y) <= posError
+			&& Mathf.Abs (correctPos.z - transform.position.z) <= posError) {
+			transform.position = correctPos;
+		}
+	}
+
 	protected IEnumerator ExecuteRotation(Vector3 from, Vector3 to, float duration)
 	{
 		if (duration < float.Epsilon)

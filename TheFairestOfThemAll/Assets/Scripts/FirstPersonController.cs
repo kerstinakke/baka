@@ -51,6 +51,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		private bool Jumping;
 		private AudioSource AudioSource;
 		private GameObject HoldEffect;
+		private float FOV;
 
 		// Use this for initialization
 		private void Start ()
@@ -58,6 +59,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			CharacterController = GetComponent<CharacterController> ();
 			Camera = GetComponentInChildren<Camera> ();
 			Camera.enabled=true;
+			FOV = Camera.fieldOfView;
 			OriginalCameraPosition = Camera.transform.localPosition;
 			FovKick.Setup (Camera);
 			HeadBob.Setup (Camera, StepInterval);
@@ -124,8 +126,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 							MovableBeacon beacon = Holding as MovableBeacon;
 							if (beacon != null) {
 								beacon.Inactivate();
-								beacon.SetCameraActive (true);
-								Camera.enabled = false;
+								Camera.fieldOfView = beacon.FOV;
 							}
 							HoldEffect.SetActive (true);
 							print ("Pickup");
@@ -136,8 +137,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 					MovableBeacon beacon = Holding as MovableBeacon;
 					if (beacon != null) {
 						beacon.LetGo (transform.position);
-						Camera.enabled = true;
-						beacon.SetCameraActive (false);
+						Camera.fieldOfView = FOV;
 					}else 
 						Holding.LetGo ();
 					Holding = null;
