@@ -383,8 +383,8 @@ MonoBehaviour:
   IsWalking: 0
   WalkSpeed: 5
   RunSpeed: 8
-  RunstepLenghten: 1
-  JumpSpeed: 10
+  RunstepLenghten: 0.5
+  JumpSpeed: 9
   StickToGroundForce: 1
   GravityMultiplier: 1
   MouseLook:
@@ -453,7 +453,7 @@ MonoBehaviour:
   JumpBob:
     BobDuration: 0
     BobAmount: 0
-  StepInterval: 3
+  StepInterval: 5
   FootstepSounds:
   - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
   - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}

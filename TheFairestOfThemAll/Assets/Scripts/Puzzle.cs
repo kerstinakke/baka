@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System;
 using UnityEngine;
 using Emgu.CV;
 using Emgu.CV.Util;
 using Emgu.CV.Structure;
+using Emgu.CV.CvEnum;
 
 public class Puzzle : MonoBehaviour {
 
 	//[SerializeField] private MovablePiece[] movingPieces;
-	[SerializeField] private int level;
+	[SerializeField] private int level=1;
 
-	private Image<Bgr, byte> templateImage;
-	private Image<Gray, byte> mask;
+	private Image<Bgr, Byte> templateImage;
+	private Image<Bgr,Byte> mask;
 	private MovableBeacon levelBeacon;
 	private bool WasFocus;
 	private Camera FPCamera;
@@ -25,8 +27,8 @@ public class Puzzle : MonoBehaviour {
 		levelBeacon = GameObject.FindGameObjectWithTag ("Beacon").GetComponent<MovableBeacon>();
 		WasFocus = false;
 		FPCamera = GameObject.FindGameObjectWithTag ("Player").GetComponentInChildren<Camera> ();
-		templateImage = new Image<Bgr, byte> ("Assets/Rendering/textures/puzzle"+level+"/solution.png");
-
+		templateImage = new Image<Bgr, Byte> ("Assets/Rendering/textures/puzzle"+level+"/solution.png");
+		mask = new Image<Bgr, Byte> ("Assets/Rendering/textures/puzzle" + level + "/mask.png");
 	}
 	
 	// Update is called once per frame
@@ -48,7 +50,7 @@ public class Puzzle : MonoBehaviour {
 		FPCamera.enabled = false;
 		Image<Bgr,  byte> sourceImage = new Image<Bgr, byte> ("Assets/Rendering/textures/test.png");
 		Image<Gray, float> result = new Image<Gray, float>(257-templateImage.Width, 257-templateImage.Height);
-		Emgu.CV.CvInvoke.MatchTemplate(sourceImage, templateImage, result, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed,mask);
+		Emgu.CV.CvInvoke.MatchTemplate(sourceImage, templateImage, result, TemplateMatchingType.CcorrNormed, mask);
 		double[] minValues, maxValues;
 		Point[] minLocations, maxLocations;
 		result.MinMax (out minValues, out maxValues, out minLocations, out maxLocations);

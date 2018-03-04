@@ -114,7 +114,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			if (!WasHoldingEDown && EDown) {
 				if (Holding == null) {
 					RaycastHit hitInfo;
-					if (Physics.Raycast (Camera.transform.position, Camera.transform.forward, out hitInfo, 2)) {
+					if (Physics.Raycast (Camera.transform.position, Camera.transform.forward, out hitInfo, 2f)) {
 						GameObject aming = hitInfo.collider.gameObject;
 						Movable movingScript = aming.GetComponentInParent<Movable> ();
 						if (movingScript != null) {

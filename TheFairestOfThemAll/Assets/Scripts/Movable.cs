@@ -28,6 +28,7 @@ public class Movable : MonoBehaviour {
 
 	public bool LetGo (){
 		collider.isTrigger = false;
+		print (WithinLimits (posError)+" "+correctPos+" "+transform.position);
 		if (WithinLimits (posError)) {
 			transform.position = correctPos;
 			return true;
@@ -45,9 +46,10 @@ public class Movable : MonoBehaviour {
 		if(!isRotating && rotDir.magnitude!=0)
 			StartCoroutine(ExecuteRotation( body.eulerAngles, body.eulerAngles + rotDir,0.5f));
 		if(vertical!=0){
-			if (Mathf.Abs (offset.y) < 1f) {
-				offset += new Vector3 (0, vertical * speed * Time.deltaTime);
-				print (vertical * speed * Time.deltaTime);
+			Vector3 newOffset = offset + new Vector3 (0, vertical * speed * Time.deltaTime);
+			if (newOffset.magnitude < 2f) {
+				offset = newOffset;
+				print (offset);
 			}
 		}
 	}
