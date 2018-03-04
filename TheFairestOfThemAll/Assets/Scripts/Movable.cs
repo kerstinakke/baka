@@ -9,6 +9,7 @@ public class Movable : MonoBehaviour {
 	private bool isRotating;
 	private Transform body;
 	private float speed = 0.5f;
+	private float slow = 4f;
 	[SerializeField] protected Vector3 correctPos;
 	[SerializeField] protected float posError = 0.2f;
 	[SerializeField] protected float horRotAngle = 90f;
@@ -19,18 +20,24 @@ public class Movable : MonoBehaviour {
 		body = transform.Find ("Body");
 	}
 
-	public void Pickup (Vector3 pos){
+	public bool Pickup (Vector3 pos){
 		offset = transform.position-pos;
 		collider.isTrigger = true;
+		return WithinLimits (slow);
 	}
 
-	public void LetGo (){
+	public bool LetGo (){
 		collider.isTrigger = false;
-		AidLanding ();
+		if (WithinLimits (posError)) {
+			transform.position = correctPos;
+			return true;
+		} else
+			return false;
 	}
 
-	public void Follow(Vector3 pos){
+	public bool Follow(Vector3 pos){
 		transform.position = pos+offset;
+		return WithinLimits (slow);
 	}
 
 	public void Adjust(float horizontal, float vertical){
@@ -45,12 +52,11 @@ public class Movable : MonoBehaviour {
 		}
 	}
 
-	protected void AidLanding(){
-		if (Mathf.Abs (correctPos.x - transform.position.x) <= posError 
-			&& Mathf.Abs (correctPos.y - transform.position.y) <= posError
-			&& Mathf.Abs (correctPos.z - transform.position.z) <= posError) {
-			transform.position = correctPos;
+	protected bool WithinLimits(float error){
+		if ((transform.position-correctPos).magnitude <= error) {
+			return true;
 		}
+		return false;
 	}
 
 	protected IEnumerator ExecuteRotation(Vector3 from, Vector3 to, float duration)

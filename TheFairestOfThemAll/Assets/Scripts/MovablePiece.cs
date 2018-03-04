@@ -6,5 +6,4 @@ public class MovablePiece: Movable {
 
 	public Vector3 correctRot;
 
-
 }

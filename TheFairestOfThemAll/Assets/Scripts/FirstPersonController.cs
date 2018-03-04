@@ -50,7 +50,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		private float NextStep;
 		private bool Jumping;
 		private AudioSource AudioSource;
-		private GameObject HoldEffect;
+		private OverlayEffects HoldEffect;
 		private float FOV;
 
 		// Use this for initialization
@@ -72,9 +72,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			AudioSource = GetComponent<AudioSource> ();
 			MouseLook.Init (transform, Camera.transform);
 			OriginalSpeed = WalkSpeed;
-			HoldEffect = transform.Find ("Canvas").gameObject;
-			HoldEffect.SetActive (false);
-		
+			HoldEffect = transform.Find ("Canvas").GetComponent<OverlayEffects>();	
 		}
 
 
@@ -87,7 +85,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				bool RDown = CrossPlatformInputManager.GetButtonDown ("ToggleRotate");
 				if (!WasHoldingRDown && RDown) {
 					RotateMode = !RotateMode;
-					HoldEffect.GetComponent<OverlayEffects> ().SwitchSprite ();
+					HoldEffect.RotateEffect (RotateMode);
 					print("rotate Toggle!");
 				}
 				WasHoldingRDown = RDown;
@@ -120,29 +118,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
 						GameObject aming = hitInfo.collider.gameObject;
 						Movable movingScript = aming.GetComponentInParent<Movable> ();
 						if (movingScript != null) {
-							WalkSpeed = 1f;
 							Holding = movingScript;
-							Holding.Pickup (transform.position);
+							WalkSpeed = Holding.Pickup (transform.position) ? 1f:OriginalSpeed;
 							MovableBeacon beacon = Holding as MovableBeacon;
 							if (beacon != null) {
 								beacon.Inactivate();
 								Camera.fieldOfView = beacon.FOV;
 							}
-							HoldEffect.SetActive (true);
 							print ("Pickup");
+							HoldEffect.PlayEffects();
 						}
 					}
 				} else {
 					WalkSpeed = OriginalSpeed;
 					MovableBeacon beacon = Holding as MovableBeacon;
 					if (beacon != null) {
-						beacon.LetGo (transform.position);
+						HoldEffect.CorrectEffect(beacon.LetGo (transform.position));
 						Camera.fieldOfView = FOV;
 					}else 
-						Holding.LetGo ();
+						HoldEffect.CorrectEffect(Holding.LetGo ());
 					Holding = null;
 					RotateMode = false;
-					HoldEffect.SetActive (false);
 					print ("LetDown");
 				}
 			}
@@ -193,7 +189,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				}
 				CollisionFlags = CharacterController.Move (MoveDir * Time.fixedDeltaTime);
 				if (Holding != null) {
-					Holding.Follow (transform.position);
+				if (Holding.Follow (transform.position))
+					WalkSpeed = 1f;
 				}
 
 				ProgressStepCycle (speed);
