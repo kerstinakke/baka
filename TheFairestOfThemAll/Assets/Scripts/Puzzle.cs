@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Emgu.CV;
 using Emgu.CV.Util;
 using Emgu.CV.Structure;
@@ -58,7 +59,11 @@ public class Puzzle : MonoBehaviour {
 		if (maxValues [0] > accuracy) {
 			Solved = true;
 			gameObject.transform.Find ("whole").gameObject.SetActive (true);
+			Invoke ("NextLevel", 3f);
 		}
 	}
 		
+	private void NextLevel(){
+		SceneManager.LoadSceneAsync (1);
+	}
 }

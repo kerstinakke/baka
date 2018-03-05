@@ -5,7 +5,7 @@ using UnityEngine;
 public class Movable : MonoBehaviour {
 
 	private Vector3 offset;
-	private Collider collider;
+	private Collider myCollider;
 	private bool isRotating;
 	private Transform body;
 	private float speed = 0.5f;
@@ -15,19 +15,19 @@ public class Movable : MonoBehaviour {
 	[SerializeField] protected float horRotAngle = 90f;
 
 	public void Start(){
-		collider = GetComponentInChildren<Collider> ();
+		myCollider = GetComponentInChildren<Collider> ();
 		isRotating = false;
 		body = transform.Find ("Body");
 	}
 
 	public bool Pickup (Vector3 pos){
 		offset = transform.position-pos;
-		collider.isTrigger = true;
+		myCollider.isTrigger = true;
 		return WithinLimits (slow);
 	}
 
 	public bool LetGo (){
-		collider.isTrigger = false;
+		myCollider.isTrigger = false;
 		print (WithinLimits (posError)+" "+correctPos+" "+transform.position);
 		if (WithinLimits (posError)) {
 			transform.position = correctPos;
@@ -47,9 +47,8 @@ public class Movable : MonoBehaviour {
 			StartCoroutine(ExecuteRotation( body.eulerAngles, body.eulerAngles + rotDir,0.5f));
 		if(vertical!=0){
 			Vector3 newOffset = offset + new Vector3 (0, vertical * speed * Time.deltaTime);
-			if (newOffset.magnitude < 2f) {
+			if (newOffset.y <= 2f) {
 				offset = newOffset;
-				print (offset);
 			}
 		}
 	}
@@ -79,6 +78,5 @@ public class Movable : MonoBehaviour {
 		}
 		isRotating = false;
 	}
-		
 
 }
