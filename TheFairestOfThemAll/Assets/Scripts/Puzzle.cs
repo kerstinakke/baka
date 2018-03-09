@@ -64,6 +64,10 @@ public class Puzzle : MonoBehaviour {
 	}
 		
 	private void NextLevel(){
-		SceneManager.LoadSceneAsync (1);
+		int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+		if (SceneManager.sceneCount > nextSceneIndex)
+		{
+			SceneManager.LoadSceneAsync(nextSceneIndex);
+		}
 	}
 }

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -52,7 +53,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		private AudioSource AudioSource;
 		private OverlayEffects HoldEffect;
 		private float FOV;
-
+		private bool giveUp = false;
 		// Use this for initialization
 		private void Start ()
 		{
@@ -79,8 +80,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		// Update is called once per frame
 		private void Update ()
 		{
+			if (Input.GetKeyDown (KeyCode.N)&&!giveUp) {
+				giveUp = true;
+				SceneManager.LoadSceneAsync (SceneManager.GetActiveScene ().buildIndex);
+			}
 			RotateView ();
-
+			if (giveUp)
+				return;
 			if ((Holding as MovablePiece) != null) {
 				bool RDown = CrossPlatformInputManager.GetButtonDown ("ToggleRotate");
 				if (!WasHoldingRDown && RDown) {
