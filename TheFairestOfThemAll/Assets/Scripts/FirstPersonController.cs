@@ -123,7 +123,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 							MovableBeacon beacon = Holding as MovableBeacon;
 							if (beacon != null) {
 								beacon.Inactivate();
-								Camera.fieldOfView = beacon.FOV;
 							}
 							print ("Pickup");
 							HoldEffect.PlayEffects();
@@ -134,7 +133,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 					MovableBeacon beacon = Holding as MovableBeacon;
 					if (beacon != null) {
 						HoldEffect.CorrectEffect(beacon.LetGo (transform.position));
-						Camera.fieldOfView = FOV;
 					}else 
 						HoldEffect.CorrectEffect(Holding.LetGo ());
 					Holding = null;
@@ -189,8 +187,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				}
 				CollisionFlags = CharacterController.Move (MoveDir * Time.fixedDeltaTime);
 				if (Holding != null) {
-				if (Holding.Follow (transform.position))
-					WalkSpeed = 1f;
+				WalkSpeed = Holding.Follow (transform.position)? 1f: OriginalSpeed;
 				}
 
 				ProgressStepCycle (speed);

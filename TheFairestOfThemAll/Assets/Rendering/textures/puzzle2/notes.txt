@@ -1,0 +1,7 @@
+paranda graafika
+restart
+rotate
+paranda offset kontroll
+paranda kaamera kõrgus
+kiirus tagasi
+maybe remove planes

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Movable : MonoBehaviour {
 
-	private Vector3 offset;
+	protected Vector3 offset = new Vector3();
 	private Collider myCollider;
 	private bool isRotating;
 	private Transform body;
 	private float speed = 0.5f;
-	private float slow = 4f;
+	protected float slow = 4f;
 	[SerializeField] protected Vector3 correctPos;
 	[SerializeField] protected float posError = 0.2f;
 	[SerializeField] protected float horRotAngle = 90f;
@@ -20,7 +20,7 @@ public class Movable : MonoBehaviour {
 		body = transform.Find ("Body");
 	}
 
-	public bool Pickup (Vector3 pos){
+	public virtual bool Pickup (Vector3 pos){
 		offset = transform.position-pos;
 		myCollider.isTrigger = true;
 		return WithinLimits (slow);
@@ -36,7 +36,7 @@ public class Movable : MonoBehaviour {
 			return false;
 	}
 
-	public bool Follow(Vector3 pos){
+	public virtual bool Follow(Vector3 pos){
 		transform.position = pos+offset;
 		return WithinLimits (slow);
 	}
