@@ -12,7 +12,7 @@ public class Movable : MonoBehaviour {
 	protected float slow = 4f;
 	[SerializeField] protected Vector3 correctPos;
 	[SerializeField] protected float posError = 0.2f;
-	[SerializeField] protected float horRotAngle = 90f;
+	[SerializeField] protected float rotAngle = 45f;
 
 	public void Start(){
 		myCollider = GetComponentInChildren<Collider> ();
@@ -41,8 +41,8 @@ public class Movable : MonoBehaviour {
 		return WithinLimits (slow);
 	}
 
-	public void Adjust(float horizontal, float vertical){
-		Vector3 rotDir = new Vector3 (0, horizontal * horRotAngle,0);
+	public void Adjust(float horizontalRot, float vertical, float verticalRot){
+		Vector3 rotDir = new Vector3 ( verticalRot * rotAngle, horizontalRot * rotAngle,0);
 		if(!isRotating && rotDir.magnitude!=0)
 			StartCoroutine(ExecuteRotation( body.eulerAngles, body.eulerAngles + rotDir,0.5f));
 		if(vertical!=0){

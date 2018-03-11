@@ -82,5 +82,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 9.4, y: 6.3, z: 8.1}
   posError: 1
-  horRotAngle: 45
+  rotAngle: 45
   correctRot: {x: 0, y: 0, z: 0}

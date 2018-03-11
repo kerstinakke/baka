@@ -18,7 +18,7 @@ public class OverlayEffects : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		image = GetComponent<Image>();
-		canvas = GetComponent<Canvas> ();
+		canvas = GetComponent<Canvas>();
 		canvas.enabled = false;
 	}
 

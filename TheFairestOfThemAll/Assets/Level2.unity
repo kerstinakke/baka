@@ -636,7 +636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 33.24, y: 1.4, z: 17.1}
   posError: 1
-  horRotAngle: 45
+  rotAngle: 90
   correctRot: {x: 0, y: -45, z: 0}
 --- !u!1 &180469057
 GameObject:
@@ -1024,7 +1024,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 9.16, y: 6.27, z: 15.48}
   posError: 1
-  horRotAngle: 45
+  rotAngle: 45
   correctRot: {x: 0, y: 0, z: 0}
 --- !u!1 &249508665
 GameObject:
@@ -1469,7 +1469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 9.16, y: 6.27, z: 15.48}
   posError: 1
-  horRotAngle: 45
+  rotAngle: 90
   correctRot: {x: 0, y: 0, z: 0}
 --- !u!1 &352451517
 GameObject:
@@ -1550,7 +1550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: -4.29, y: 8.74, z: 9.68}
   posError: 1
-  horRotAngle: 45
+  rotAngle: 90
   correctRot: {x: 0, y: 90, z: 0}
 --- !u!1 &468377691
 GameObject:
@@ -2850,7 +2850,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 999838844}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.34, y: -1.48, z: 9.38}
   m_LocalScale: {x: 2.6, y: 2.6, z: 2.6}
   m_Children:
@@ -2872,7 +2872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: -4.29, y: 8.74, z: 9.68}
   posError: 1
-  horRotAngle: 45
+  rotAngle: 45
   correctRot: {x: 0, y: 90, z: 0}
 --- !u!1 &1005447932
 GameObject:
@@ -3119,7 +3119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: -20.14, y: 6.23, z: 13.44}
   posError: 2
-  horRotAngle: 45
+  rotAngle: 90
   correctRot: {x: 0, y: 90, z: 0}
 --- !u!1001 &1076925977
 Prefab:
@@ -3975,7 +3975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: -20.14, y: 6.23, z: 13.44}
   posError: 2
-  horRotAngle: 45
+  rotAngle: 45
   correctRot: {x: 0, y: 90, z: 0}
 --- !u!1 &1422444272
 GameObject:
@@ -6051,7 +6051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctPos: {x: 12.67, y: 3.86, z: 12.83}
   posError: 1
-  horRotAngle: 45
+  rotAngle: 90
   correctRot: {x: 0, y: 90, z: 0}
 --- !u!1 &2142182109
 GameObject:

@@ -174,7 +174,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				MoveDir.x = desiredMove.x * speed;
 				MoveDir.z = desiredMove.z * speed;
 			} else {
-				Holding.Adjust (CrossPlatformInputManager.GetAxisRaw("Horizontal"), CrossPlatformInputManager.GetAxisRaw ("Vertical"));
+				Holding.Adjust (CrossPlatformInputManager.GetAxisRaw("Horizontal"), 
+					CrossPlatformInputManager.GetAxisRaw ("Vertical"), 
+					CrossPlatformInputManager.GetAxisRaw ("VerticalRotate"));
 				speed = 0;
 				MoveDir.x = 0;
 				MoveDir.z = 0;
