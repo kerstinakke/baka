@@ -154,7 +154,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: a91f7699fcbf7ad45b4ea63d907bfa18, type: 2}
+  - {fileID: 2100000, guid: e1eb32fa7aca3fa4cb7c420db5be8f50, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -193,9 +193,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   correctPos: {x: -0.1, y: 1, z: 0.3}
-  PosError: 0.2
-  RotAngle: 90
+  posError: 0.2
+  rotAngle: 45
   answerTexture: {fileID: 8400000, guid: 2d183cecf7851ef4e92bc9a9839955e9, type: 2}
+  FOV: 0
 --- !u!135 &135237657446859752
 SphereCollider:
   m_ObjectHideFlags: 1
