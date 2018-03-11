@@ -37,7 +37,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		private Camera Camera;
 		private bool Jump;
 		private Movable Holding;
-		private bool WasHoldingEDown;
+		private bool WasHoldingHoldDown;
 		private bool WasHoldingRDown;
 		private bool RotateMode;
 		private float YRotation;
@@ -67,7 +67,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			StepCycle = 0f;
 			NextStep = StepCycle / 2f;
 			Jumping = false;
-			WasHoldingEDown = false;
+			WasHoldingHoldDown = false;
 			WasHoldingRDown = false;
 			RotateMode = false;
 			AudioSource = GetComponent<AudioSource> ();
@@ -87,7 +87,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			RotateView ();
 			if (giveUp)
 				return;
-			if ((Holding as MovablePiece) != null) {
+			if (Holding != null) {
 				bool RDown = CrossPlatformInputManager.GetButtonDown ("ToggleRotate");
 				if (!WasHoldingRDown && RDown) {
 					RotateMode = !RotateMode;
@@ -115,9 +115,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			PreviouslyGrounded = CharacterController.isGrounded;
 
 
-			bool EDown = CrossPlatformInputManager.GetButtonDown ("Hold");
+			bool holdIsDown = CrossPlatformInputManager.GetButtonDown ("Hold");
 			//if not pressing e previous frame, but is now
-			if (!WasHoldingEDown && EDown) {
+			if (!WasHoldingHoldDown && holdIsDown) {
 				if (Holding == null) {
 					RaycastHit hitInfo;
 					if (Physics.Raycast (Camera.transform.position, Camera.transform.forward, out hitInfo, 2f)) {
@@ -147,7 +147,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				}
 			}
 
-			WasHoldingEDown = EDown;
+			WasHoldingHoldDown = holdIsDown;
 		}
 
 		private void PlayLandingSound ()
