@@ -19,7 +19,7 @@ public class Movable : MonoBehaviour {
 		myCollider = GetComponentInChildren<Collider> ();
 		isRotating = false;
 		body = transform.Find ("Body");
-		transform.position = correctPos;
+		//transform.position = correctPos;
 	}
 
 	public virtual bool Pickup (Vector3 pos){

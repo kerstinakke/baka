@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 4878935266329330}
   - component: {fileID: 114191018260091210}
   - component: {fileID: 135237657446859752}
+  - component: {fileID: 114447789793067908}
   m_Layer: 0
   m_Name: Beacon
   m_TagString: Beacon
@@ -197,6 +198,17 @@ MonoBehaviour:
   rotAngle: 45
   answerTexture: {fileID: 8400000, guid: 2d183cecf7851ef4e92bc9a9839955e9, type: 2}
   FOV: 0
+--- !u!114 &114447789793067908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1374284809918206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5718dc396e807ff4bb675f1918728b10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135237657446859752
 SphereCollider:
   m_ObjectHideFlags: 1
