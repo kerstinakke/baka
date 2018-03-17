@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovableBlock : Movable {
 
 	protected override bool WithinLimits(float whatever){
-		return true;
+		return false;
 	}
 
 	public override bool LetGo (){

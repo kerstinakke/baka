@@ -10,15 +10,22 @@ public class Movable : MonoBehaviour {
 	private float originalY;
 	private Transform body;
 	protected float speed = 0.5f;
+	[SerializeField]protected Vector3 correctPos;
+	protected float posError = 0.5f;
 	protected float slow = 4f;
-	[SerializeField] protected Vector3 correctPos;
-	[SerializeField] protected float posError = 0.2f;
-	[SerializeField] protected float rotAngle = 45f;
+	protected float rotAngle = 45f;
 
 	public void Start(){
 		myCollider = GetComponentInChildren<Collider> ();
 		isRotating = false;
 		body = transform.Find ("Body");
+		GameObject propertiesObject = GameObject.FindWithTag ("Properties");
+		if (propertiesObject != null) {
+			LevelMovableProps properties = propertiesObject.GetComponent<LevelMovableProps> ();
+			posError = properties.AllowedPosError;
+			slow = properties.slow;
+			rotAngle = properties.rotAngle;
+		}
 		//transform.position = correctPos;
 	}
 

@@ -22,7 +22,6 @@ public class Puzzle : MonoBehaviour {
 	[SerializeField] private bool Solved = false;
 	[SerializeField] private float accuracy = 0.9f;
 
-
 	// Use this for initialization
 	void Start () {
 		levelBeacon = GameObject.FindGameObjectWithTag ("Beacon").GetComponent<MovableBeacon>();
@@ -35,8 +34,10 @@ public class Puzzle : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (!Solved) {
+			if (!levelBeacon.GetActive ())
+				return;
 			bool focus = Input.GetKey (KeyCode.F);
-			if (levelBeacon.GetActive() && focus && !WasFocus) { //do once after f is pressed	
+			if (focus && !WasFocus) { //do once after f is pressed	
 				levelBeacon.SetCameraActive (true);
 				StartCoroutine(levelBeacon.TakePicture (this));
 			} else if (!focus && WasFocus) {//do once after release
