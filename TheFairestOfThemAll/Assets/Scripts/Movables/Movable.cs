@@ -51,7 +51,7 @@ public class Movable : MonoBehaviour {
 		return WithinLimits (slow);
 	}
 
-	public void Adjust(float horizontalRot, float vertical, float verticalRot){
+	public virtual void Adjust(float horizontalRot, float vertical, float verticalRot){
 		Vector3 rotDir = new Vector3 (0, horizontalRot * rotAngle, verticalRot * rotAngle);
 		if(!isRotating && rotDir.magnitude!=0)
 			StartCoroutine(ExecuteRotation( body.eulerAngles, body.eulerAngles + rotDir,0.5f));
