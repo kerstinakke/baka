@@ -7,7 +7,7 @@ public class Tutorial : MonoBehaviour {
 	
 	private enum State
 	{
-		LeadToBeacon,CarryBeacon,LeadToPiece,CarryPiece,RotatePiece
+		LeadToBeacon,CarryBeacon,LeadToPiece,CarryPiece
 	};
 
 
@@ -51,16 +51,8 @@ public class Tutorial : MonoBehaviour {
 	public void CarryPiece(){
 		if (state == State.LeadToPiece)
 			arrows.GetChild (2).gameObject.SetActive (false);
-		overlayText.text = "R\n\nF";
+		overlayText.text = "Q W E\nA S D\n\nF\n\nR";
 		state = State.CarryPiece;
-	}
-
-	public void RotatePiece(){
-		if (state == State.CarryPiece) {
-			print ("rotate");
-			overlayText.text = "Q W E\nA S D\n\nF\n\nR";
-		}
-		state = State.RotatePiece;
 	}
 
 }

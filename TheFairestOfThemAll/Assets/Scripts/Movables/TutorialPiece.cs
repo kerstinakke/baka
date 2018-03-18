@@ -15,14 +15,6 @@ public class TutorialPiece : MovablePiece {
 		tutorial.CarryPiece ();
 		return base.Pickup (pos);
 	}
-
-	public override void Adjust(float horizontalRot, float vertical, float verticalRot){
-		tutorial.RotatePiece ();
-		base.Adjust (horizontalRot, vertical, verticalRot);
-	}
-
-	public override bool Follow(Vector3 pos){
-		tutorial.CarryPiece ();
-		return base.Follow (pos);
-	}
+		
+		
 }

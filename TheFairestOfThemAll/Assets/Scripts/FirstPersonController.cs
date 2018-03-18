@@ -194,9 +194,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 					MoveDir += Physics.gravity * GravityMultiplier * Time.fixedDeltaTime;
 				}
 				CollisionFlags = CharacterController.Move (MoveDir * Time.fixedDeltaTime);
-			if (Holding != null && !RotateMode) {
+			if (Holding != null) {
 				WalkSpeed = Holding.Follow (transform.position)? 1f: OriginalSpeed;
-				}
+			}
 
 				ProgressStepCycle (speed);
 				UpdateCameraPosition (speed);
