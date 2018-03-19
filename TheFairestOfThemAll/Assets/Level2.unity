@@ -229,8 +229,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  Solved: 0
+  solved: 0
   accuracy: 0.8
+  templateImageTexture: {fileID: 2800000, guid: 0419782cdc7466746aa70690145a7190,
+    type: 3}
+  maskTexture: {fileID: 2800000, guid: 5913da40689fb6542924b60c5c187cf8, type: 3}
 --- !u!4 &19492055
 Transform:
   m_ObjectHideFlags: 0
@@ -2431,8 +2434,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  Solved: 0
+  solved: 0
   accuracy: 0.8
+  templateImageTexture: {fileID: 0}
+  maskTexture: {fileID: 0}
 --- !u!1 &822673419
 GameObject:
   m_ObjectHideFlags: 0
