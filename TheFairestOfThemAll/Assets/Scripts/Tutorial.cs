@@ -12,9 +12,10 @@ public class Tutorial : MonoBehaviour {
 
 
 	private Transform arrows;
-	private Text overlayText;
+	//private Text overlayText;
 //	private TextMesh beaconText;
 	private State state = State.LeadToBeacon;
+	private GameObject tutorialText;
 
 
 	// Use this for initialization
@@ -23,18 +24,21 @@ public class Tutorial : MonoBehaviour {
 		for (int i = 1; i < arrows.childCount; i++) {
 			arrows.GetChild (i).gameObject.SetActive (false);
 		}
-		overlayText = GameObject.FindGameObjectWithTag ("Player").GetComponentInChildren<Text>();
+		tutorialText = GameObject.FindGameObjectWithTag("Overlay").transform.Find("HoldEffect").gameObject.transform.Find("TutorialText").gameObject;
 	/*	beaconText = GameObject.FindGameObjectWithTag ("Beacon").GetComponentInChildren<TextMesh> ();
 		print (beaconText);
 		beaconText.text = "X"; */
 	}
 
 	public void CarryBeacon(){
+		
+		tutorialText.SetActive(false);
 		if (state != State.LeadToBeacon && arrows.GetChild (0).gameObject.activeSelf==false)
 			return;
 		arrows.GetChild (0).gameObject.SetActive (false);
 		arrows.GetChild (1).gameObject.SetActive (true);
-		overlayText.text = "";
+
+		//overlayText.text = "";
 		state = State.CarryBeacon;
 		//beaconText.text = "";
 
@@ -49,9 +53,10 @@ public class Tutorial : MonoBehaviour {
 	}
 
 	public void CarryPiece(){
+		tutorialText.SetActive(true);
 		if (state == State.LeadToPiece)
 			arrows.GetChild (2).gameObject.SetActive (false);
-		overlayText.text = "Q W E\nA S D\n\nF\n\nR";
+		//overlayText.text = "Q W E\nA S D\n\nF\n\nR";
 		state = State.CarryPiece;
 	}
 

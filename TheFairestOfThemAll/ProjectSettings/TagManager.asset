@@ -8,6 +8,7 @@ TagManager:
   - Beacon
   - Mirror
   - Properties
+  - Overlay
   layers:
   - Default
   - TransparentFX

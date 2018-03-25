@@ -50,10 +50,10 @@ public static class ImageHelper
         if (tex.format != TextureFormat.RGB24 && tex.format != TextureFormat.RGBA32)
         {
             Debug.LogWarning(tex.name + " - Can not convert to an image a texture with a format " + tex.format + "! (only RGB24 is supported)");
-            if (tex.alphaIsTransparency)
+            /*if (tex.alphaIsTransparency)
             {
                 Debug.LogWarning(tex.name + " -Transparenct not supported!");
-            }
+            }*/
         }
 
         var data = new byte[tex.width, tex.height, depth];
@@ -111,7 +111,7 @@ public static class ImageHelper
         Debug.Log("aa");
 
         Texture2D texCopy = new Texture2D(img.Data.GetLength(0), img.Data.GetLength(1), format, hasMipmaps);
-        texCopy.alphaIsTransparency = true;
+		//texCopy.alphaIsTransparency = true;
         texCopy.LoadRawTextureData(ToTextureData(img.Data));
 
         return texCopy;

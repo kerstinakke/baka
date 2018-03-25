@@ -73,7 +73,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			AudioSource = GetComponent<AudioSource> ();
 			MouseLook.Init (transform, Camera.transform);
 			OriginalSpeed = WalkSpeed;
-			HoldEffect = transform.Find ("Canvas").GetComponent<OverlayEffects>();	
+			HoldEffect = GameObject.FindGameObjectWithTag("Overlay").GetComponentInChildren<OverlayEffects>(true);	
 		}
 
 
@@ -131,7 +131,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 								beacon.Inactivate();
 							}
 							print ("Pickup");
-							HoldEffect.PlayEffects();
+							HoldEffect.HoldEffect();
 						}
 					}
 				} else {
