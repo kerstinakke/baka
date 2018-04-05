@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 using Emgu.CV;
 using Emgu.CV.Util;
 using Emgu.CV.Structure;
@@ -10,9 +11,7 @@ using Emgu.CV.CvEnum;
 
 public class Puzzle : MonoBehaviour {
 
-	//[SerializeField] private MovablePiece[] movingPieces;
-	[SerializeField] private int level=1;
-
+	private float startTime;
 	private Image<Bgr, byte> templateImage;
 	private Image<Bgr, byte> mask;
 	private MovableBeacon levelBeacon;
@@ -29,9 +28,8 @@ public class Puzzle : MonoBehaviour {
 		wasFocus = false;
 		FPCamera = GameObject.FindGameObjectWithTag ("Player").GetComponentInChildren<Camera> ();
 		templateImage = ImageHelper.ToImage(templateImageTexture);
-		print (templateImage.Size);
 		mask = ImageHelper.ToImage(maskTexture);
-		print (mask.Size);
+		startTime = Time.time;
 	}
 	
 	// Update is called once per frame
@@ -48,11 +46,17 @@ public class Puzzle : MonoBehaviour {
 				FPCamera.enabled=true;
 			}
 			wasFocus = focus;
+			OverlayEffects.ShowTime(formatTime(Time.time-startTime));
 		}
 	}
 
 	public void CheckCorrect(Texture2D sourceTexture){
-		FPCamera.enabled = false;
+
+		if(Application.isEditor){
+			byte[] bytes = sourceTexture.EncodeToPNG();
+			File.WriteAllBytes (Application.dataPath + "/Rendering/textures/test.png", bytes);
+		}
+
 		Image<Bgr,  byte> sourceImage = ImageHelper.ToImage(sourceTexture);
 		Image<Gray, float> result = new Image<Gray, float>(257-templateImage.Width, 257-templateImage.Height);
 		Emgu.CV.CvInvoke.MatchTemplate(sourceImage, templateImage, result, TemplateMatchingType.CcorrNormed, mask);
@@ -63,6 +67,17 @@ public class Puzzle : MonoBehaviour {
 		if (maxValues [0] > accuracy) {
 			solved = true;
 			gameObject.transform.Find ("whole").gameObject.SetActive (true);
+			string levelName = "Level" + (SceneManager.GetActiveScene ().buildIndex-1);
+			float currentTime = Time.time - startTime;
+			if (!PlayerPrefs.HasKey (levelName)) {
+				PlayerPrefs.SetFloat (levelName, currentTime);
+			} else if(PlayerPrefs.GetFloat(levelName)>currentTime){
+				PlayerPrefs.SetFloat (levelName, currentTime);
+				OverlayEffects.ShowTime("New best time! "+formatTime(currentTime));
+			}else {
+				OverlayEffects.ShowTime(formatTime(currentTime)+"\nBest time: "+ formatTime(PlayerPrefs.GetFloat(levelName)));
+			}
+			PlayerPrefs.Save ();
 			Invoke ("NextLevel", 3f);
 		}
 	}
@@ -71,4 +86,13 @@ public class Puzzle : MonoBehaviour {
 		int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
 			SceneManager.LoadSceneAsync(nextSceneIndex);
 	}
-}
+
+	private string formatTime(float currentTime){
+		return string.Format ("{0:00}:{1:00}", Mathf.Floor (currentTime / 60), currentTime % 60);
+	}
+
+	public void ReturnFromNap(float timeChange){
+		startTime += timeChange;
+	}
+}	
+

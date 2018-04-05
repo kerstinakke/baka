@@ -37,8 +37,8 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
+  m_Sun: {fileID: 1753376302}
+  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427147, b: 0.56452364, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -50,7 +50,7 @@ LightmapSettings:
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
     m_TemporalCoherenceThreshold: 1
-    m_EnvironmentLightingMode: 0
+    m_EnvironmentLightingMode: 1
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
@@ -59,9 +59,9 @@ LightmapSettings:
     m_BakeResolution: 40
     m_TextureWidth: 1024
     m_TextureHeight: 1024
-    m_AO: 0
+    m_AO: 1
     m_AOMaxDistance: 1
-    m_CompAOExponent: 1
+    m_CompAOExponent: 2
     m_CompAOExponentDirect: 0
     m_Padding: 2
     m_LightmapParameters: {fileID: 0}
@@ -310,7 +310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bef5d62d78cb2444a1a2f9fcdfcaaf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 3
   solved: 0
   accuracy: 0.9
   templateImageTexture: {fileID: 2800000, guid: f1da8b867fc12124c92014f49e16c518,
@@ -541,7 +540,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4168705306929886, guid: c6a309ec816aead47883bdc3fe4473b2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.8
+      value: -2.78
       objectReference: {fileID: 0}
     - target: {fileID: 4168705306929886, guid: c6a309ec816aead47883bdc3fe4473b2, type: 2}
       propertyPath: m_LocalPosition.z
@@ -656,11 +655,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4168705306929886, guid: c6a309ec816aead47883bdc3fe4473b2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.42
+      value: 0.452
       objectReference: {fileID: 0}
     - target: {fileID: 4168705306929886, guid: c6a309ec816aead47883bdc3fe4473b2, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 3.43
+      value: 3.46
       objectReference: {fileID: 0}
     - target: {fileID: 4168705306929886, guid: c6a309ec816aead47883bdc3fe4473b2, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3658,6 +3657,48 @@ Transform:
   m_PrefabParentObject: {fileID: 4940255612785232, guid: c6a309ec816aead47883bdc3fe4473b2,
     type: 2}
   m_PrefabInternal: {fileID: 1241211837}
+--- !u!1001 &1295635209
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4443117858271892, guid: c612cc1b988d3c342966fe986a8c6e08, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 394.79996
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443117858271892, guid: c612cc1b988d3c342966fe986a8c6e08, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 75.082466
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443117858271892, guid: c612cc1b988d3c342966fe986a8c6e08, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.45539236
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443117858271892, guid: c612cc1b988d3c342966fe986a8c6e08, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443117858271892, guid: c612cc1b988d3c342966fe986a8c6e08, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443117858271892, guid: c612cc1b988d3c342966fe986a8c6e08, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443117858271892, guid: c612cc1b988d3c342966fe986a8c6e08, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443117858271892, guid: c612cc1b988d3c342966fe986a8c6e08, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c612cc1b988d3c342966fe986a8c6e08, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &1333500476 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4057075541790786, guid: 82830e1fb5326c54387b99bcf83e887a,

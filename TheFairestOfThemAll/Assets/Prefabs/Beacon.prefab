@@ -39,7 +39,8 @@ GameObject:
   - component: {fileID: 23554266429227758}
   - component: {fileID: 199116564658200316}
   - component: {fileID: 198871933580605692}
-  m_Layer: 0
+  - component: {fileID: 135988199525827110}
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +56,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4878935266329330}
   - component: {fileID: 114191018260091210}
-  - component: {fileID: 135237657446859752}
   - component: {fileID: 114447789793067908}
   m_Layer: 0
   m_Name: Beacon
@@ -193,6 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530703110137d234cb15aeee7de768f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCollider: {fileID: 0}
   correctPos: {x: -0.1, y: 1, z: 0.3}
   answerTexture: {fileID: 8400000, guid: 2d183cecf7851ef4e92bc9a9839955e9, type: 2}
   FOV: 0
@@ -207,18 +208,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5718dc396e807ff4bb675f1918728b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135237657446859752
+--- !u!135 &135988199525827110
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1374284809918206}
+  m_GameObject: {fileID: 1223497773247492}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3
-  m_Center: {x: 0, y: -0.7, z: 0}
+  m_Radius: 0.49999997
+  m_Center: {x: 0, y: 0.00000011920929, z: 0}
 --- !u!198 &198871933580605692
 ParticleSystem:
   m_ObjectHideFlags: 1

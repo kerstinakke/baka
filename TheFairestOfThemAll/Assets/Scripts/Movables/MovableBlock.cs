@@ -10,6 +10,7 @@ public class MovableBlock : Movable {
 
 	public override bool LetGo (){
 		myCollider.isTrigger = false;
+		myCollider.gameObject.layer = LayerMask.NameToLayer("Default");
 		return false;
 	}
 }

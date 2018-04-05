@@ -5,7 +5,8 @@ using UnityEngine;
 public class Movable : MonoBehaviour {
 
 	protected Vector3 offset = new Vector3();
-	protected Collider myCollider;
+	public Collider myCollider;
+	protected Vector3 colliderOffset;
 	private bool isRotating;
 	private float originalY;
 	private Transform body;
@@ -17,6 +18,7 @@ public class Movable : MonoBehaviour {
 
 	public void Start(){
 		myCollider = GetComponentInChildren<Collider> ();
+		colliderOffset =  myCollider.bounds.center-transform.position;
 		isRotating = false;
 		body = transform.Find ("Body");
 		GameObject propertiesObject = GameObject.FindWithTag ("Properties");
@@ -32,12 +34,12 @@ public class Movable : MonoBehaviour {
 	public virtual bool Pickup (Vector3 pos){
 		offset = transform.position-pos;
 		originalY = offset.y;
-		myCollider.isTrigger = true;
+		myCollider.gameObject.layer = LayerMask.NameToLayer ("Movable");
 		return WithinLimits (slow);
 	}
 
 	public virtual bool LetGo (){
-		myCollider.isTrigger = false;
+		myCollider.gameObject.layer = LayerMask.NameToLayer ("Default");
 		print (WithinLimits (posError)+" "+correctPos+" "+transform.position);
 		if (WithinLimits (posError)) {
 			transform.position = correctPos;
@@ -47,7 +49,11 @@ public class Movable : MonoBehaviour {
 	}
 
 	public virtual bool Follow(Vector3 pos){
-		transform.position = pos+offset;
+		//Gizmos.DrawCube (pos + offset + colliderOffset, myCollider.bounds.size);
+		if (!Physics.CheckBox (pos + offset + colliderOffset, myCollider.bounds.extents,Quaternion.identity, LayerMask.GetMask ("Default")))
+			transform.position = pos + offset;
+		else
+			offset = transform.position - pos;
 		return WithinLimits (slow);
 	}
 
@@ -57,7 +63,7 @@ public class Movable : MonoBehaviour {
 			StartCoroutine(ExecuteRotation( body.eulerAngles, body.eulerAngles + rotDir,0.5f));
 		if(vertical!=0){
 			Vector3 newOffset = offset + new Vector3 (0, vertical * speed * Time.deltaTime);
-			if (Mathf.Abs(newOffset.y-originalY) <= 0.5f) {
+			if (!Physics.CheckBox (transform.position + colliderOffset+new Vector3 (0, vertical * speed * Time.deltaTime), myCollider.bounds.extents,Quaternion.identity, LayerMask.GetMask ("Default"))) {
 				offset = newOffset;
 			}
 		}

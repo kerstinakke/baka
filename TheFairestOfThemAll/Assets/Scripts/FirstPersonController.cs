@@ -51,7 +51,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		private float NextStep;
 		private bool Jumping;
 		private AudioSource AudioSource;
-		private OverlayEffects HoldEffect;
+		private OverlayEffects overlayEffect;
 		private float FOV;
 		private bool giveUp = false;
 		// Use this for initialization
@@ -73,25 +73,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			AudioSource = GetComponent<AudioSource> ();
 			MouseLook.Init (transform, Camera.transform);
 			OriginalSpeed = WalkSpeed;
-			HoldEffect = GameObject.FindGameObjectWithTag("Overlay").GetComponentInChildren<OverlayEffects>(true);	
+			overlayEffect = GameObject.FindGameObjectWithTag("Overlay").GetComponentInChildren<OverlayEffects>(true);	
 		}
 
 
 		// Update is called once per frame
 		private void Update ()
 		{
-			if (Input.GetKeyDown (KeyCode.N)&&!giveUp) {
-				giveUp = true;
-				SceneManager.LoadSceneAsync (SceneManager.GetActiveScene ().buildIndex);
-			}
 			RotateView ();
-			if (giveUp)
-				return;
-			if (Holding != null) {
+			if (Holding != null && Holding as MovableBeacon == null) {
 				bool RDown = CrossPlatformInputManager.GetButtonDown ("ToggleRotate");
 				if (!WasHoldingRDown && RDown) {
 					RotateMode = !RotateMode;
-					HoldEffect.RotateEffect (RotateMode);
+					overlayEffect.RotateEffect (RotateMode);
 					print("rotate Toggle!");
 				}
 				WasHoldingRDown = RDown;
@@ -114,33 +108,37 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 			PreviouslyGrounded = CharacterController.isGrounded;
 
+			Movable movingScript = null;
+			RaycastHit hitInfo;
+			if (Physics.Raycast (Camera.transform.position, Camera.transform.forward, out hitInfo, 1.5f)) {
+				GameObject aming = hitInfo.collider.gameObject;
+				movingScript = aming.GetComponentInParent<Movable> ();
+			}
+			overlayEffect.AimActive (movingScript!=null && Holding==null);
 
 			bool holdIsDown = CrossPlatformInputManager.GetButtonDown ("Hold");
 			//if not pressing e previous frame, but is now
 			if (!WasHoldingHoldDown && holdIsDown) {
 				if (Holding == null) {
-					RaycastHit hitInfo;
-					if (Physics.Raycast (Camera.transform.position, Camera.transform.forward, out hitInfo, 2f)) {
-						GameObject aming = hitInfo.collider.gameObject;
-						Movable movingScript = aming.GetComponentInParent<Movable> ();
+					
 						if (movingScript != null) {
 							Holding = movingScript;
-							WalkSpeed = Holding.Pickup (transform.position) ? 1f:OriginalSpeed;
+							WalkSpeed = Holding.Pickup (transform.position) ? 0.5f:OriginalSpeed;
 							MovableBeacon beacon = Holding as MovableBeacon;
 							if (beacon != null) {
 								beacon.Inactivate();
 							}
 							print ("Pickup");
-							HoldEffect.HoldEffect();
+							overlayEffect.HoldEffect();
 						}
-					}
+					
 				} else {
 					WalkSpeed = OriginalSpeed;
 					MovableBeacon beacon = Holding as MovableBeacon;
 					if (beacon != null) {
-						HoldEffect.CorrectEffect(beacon.LetGo (transform.position));
+						overlayEffect.CorrectEffect(beacon.LetGo (transform.position));
 					}else 
-						HoldEffect.CorrectEffect(Holding.LetGo ());
+						overlayEffect.CorrectEffect(Holding.LetGo ());
 					Holding = null;
 					RotateMode = false;
 					print ("LetDown");
@@ -168,7 +166,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				// get a normal for the surface that is being touched to move along it
 				RaycastHit hitInfo;
 				Physics.SphereCast (transform.position, CharacterController.radius, Vector3.down, out hitInfo,
-					CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+					CharacterController.height / 2f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
 				desiredMove = Vector3.ProjectOnPlane (desiredMove, hitInfo.normal).normalized;
 
 				MoveDir.x = desiredMove.x * speed;
@@ -196,6 +194,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				CollisionFlags = CharacterController.Move (MoveDir * Time.fixedDeltaTime);
 			if (Holding != null) {
 				WalkSpeed = Holding.Follow (transform.position)? 1f: OriginalSpeed;
+				if ((Holding.myCollider.ClosestPoint(transform.position)-transform.position).magnitude >=1.5) {
+					WalkSpeed = OriginalSpeed;
+					overlayEffect.DropEffect(Holding.LetGo ());
+					Holding = null;
+					RotateMode = false;
+					print ("Dropped");
+				}
 			}
 
 				ProgressStepCycle (speed);

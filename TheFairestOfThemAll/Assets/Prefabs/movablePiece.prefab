@@ -80,7 +80,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57bdd5e132e692348ba33e3eb3fb71c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCollider: {fileID: 0}
   correctPos: {x: 9.4, y: 6.3, z: 8.1}
-  posError: 1
-  rotAngle: 45
   correctRot: {x: 0, y: 0, z: 0}
