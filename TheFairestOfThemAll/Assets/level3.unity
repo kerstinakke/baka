@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   solved: 0
-  accuracy: 0.85
+  accuracy: 0.8
   templateImageTexture: {fileID: 2800000, guid: f1da8b867fc12124c92014f49e16c518,
     type: 3}
   maskTexture: {fileID: 2800000, guid: a0cfa81aea8bd4e478888414e0ff64db, type: 3}
@@ -890,7 +890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &418128140
 Transform:
   m_ObjectHideFlags: 0
