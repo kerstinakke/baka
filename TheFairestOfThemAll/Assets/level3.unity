@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   solved: 0
-  accuracy: 0.9
+  accuracy: 0.85
   templateImageTexture: {fileID: 2800000, guid: f1da8b867fc12124c92014f49e16c518,
     type: 3}
   maskTexture: {fileID: 2800000, guid: a0cfa81aea8bd4e478888414e0ff64db, type: 3}
@@ -890,7 +890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &418128140
 Transform:
   m_ObjectHideFlags: 0
@@ -898,8 +898,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 418128139}
   m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0.1, y: 10.22, z: 7.2}
-  m_LocalScale: {x: 4, y: 4, z: 14}
+  m_LocalPosition: {x: -1.84, y: 0.768, z: -13.334}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 177715038}
   m_RootOrder: 0
@@ -1054,7 +1054,6 @@ GameObject:
   m_Component:
   - component: {fileID: 529099351}
   - component: {fileID: 529099354}
-  - component: {fileID: 529099353}
   - component: {fileID: 529099352}
   m_Layer: 0
   m_Name: piece (2)
@@ -1110,20 +1109,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &529099353
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 529099350}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &529099354
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1996,7 +1981,7 @@ Transform:
   m_GameObject: {fileID: 804585600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.011, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.33, z: 0.2}
+  m_LocalScale: {x: 0.4, y: 0.3, z: 0.2}
   m_Children:
   - {fileID: 782693076}
   m_Father: {fileID: 1631404625}
@@ -3022,7 +3007,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1374284809918206, guid: b9aff268182843841a31010c3d05964e, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114191018260091210, guid: b9aff268182843841a31010c3d05964e,
         type: 2}
@@ -5233,7 +5218,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4591578635192976, guid: 407927159873b284393aaf68cec4445a, type: 2}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1.55
       objectReference: {fileID: 0}
     - target: {fileID: 4591578635192976, guid: 407927159873b284393aaf68cec4445a, type: 2}
       propertyPath: m_LocalScale.z

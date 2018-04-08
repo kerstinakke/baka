@@ -28,7 +28,7 @@ public class Movable : MonoBehaviour {
 			slow = properties.slow;
 			rotAngle = properties.rotAngle;
 		}
-		//transform.position = correctPos;
+		transform.position = correctPos;
 	}
 
 	public virtual bool Pickup (Vector3 pos){
