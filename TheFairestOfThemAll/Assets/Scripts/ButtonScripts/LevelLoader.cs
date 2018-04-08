@@ -9,7 +9,10 @@ public class LevelLoader : MonoBehaviour {
 	[SerializeField] private int index;
 
 	void Start(){
-		gameObject.GetComponent<Button> ().interactable = PlayerPrefs.HasKey ( "Level"+(index-2)) || index<=1; //previous level done or is tutorial level
+		gameObject.GetComponent<Button> ().interactable = PlayerPrefs.HasKey ( "Level"+(index-2)) || index<=1 || (index==6 && PlayerPrefs.HasKey ( "Level2")); 
+		//enabled if previous level done
+		//or is tutorial level 
+		//or is feedback and at least 3 levels are done
 	}
 
 	public void LoadLevel(){

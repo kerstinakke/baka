@@ -38,17 +38,21 @@ public class PauseMenu : MonoBehaviour {
 				Cursor.visible = true;
 				paused = true;
 			} else if (paused && !wasDown) {
-				player.enabled = true;
-				puzzle.enabled = true;
-				puzzle.ReturnFromNap (Time.time - pauseStartTime);
-				overlay.SetActive (true);
-				pauseScreen.SetActive(false);
-				Cursor.visible = false;
-				Cursor.lockState = CursorLockMode.Locked;
-				paused = false;
+				Unpause ();
 			}
 			wasDown = true;
 		} else
 			wasDown = false;
+	}
+
+	public void Unpause(){
+		player.enabled = true;
+		puzzle.enabled = true;
+		puzzle.ReturnFromNap (Time.time - pauseStartTime);
+		overlay.SetActive (true);
+		pauseScreen.SetActive(false);
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		paused = false;
 	}
 }

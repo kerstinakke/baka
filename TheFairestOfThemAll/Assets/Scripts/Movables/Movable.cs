@@ -60,7 +60,7 @@ public class Movable : MonoBehaviour {
 	public virtual void Adjust(float horizontalRot, float vertical, float verticalRot){
 		Vector3 rotDir = new Vector3 (0, horizontalRot * rotAngle, verticalRot * rotAngle);
 		if(!isRotating && rotDir.magnitude!=0)
-			StartCoroutine(ExecuteRotation( body.eulerAngles, body.eulerAngles + rotDir,0.5f));
+			StartCoroutine(ExecuteRotation( body.eulerAngles, body.eulerAngles + rotDir,rotAngle/90f));
 		if(vertical!=0){
 			Vector3 newOffset = offset + new Vector3 (0, vertical * speed * Time.deltaTime);
 			if (!Physics.CheckBox (transform.position + colliderOffset+new Vector3 (0, vertical * speed * Time.deltaTime), myCollider.bounds.extents,Quaternion.identity, LayerMask.GetMask ("Default"))) {

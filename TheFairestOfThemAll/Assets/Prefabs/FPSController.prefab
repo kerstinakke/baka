@@ -38,8 +38,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4100894185462280}
   - component: {fileID: 33701580469720418}
-  - component: {fileID: 135211915657872358}
   - component: {fileID: 23772495978915880}
+  - component: {fileID: 136237539971222438}
   m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
@@ -86,8 +86,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943580976275084}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.29, y: 6, z: -13.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4935584615213530}
@@ -101,8 +101,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1728241634657412}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.027049305, y: 0, z: 0, w: 0.99963415}
+  m_LocalPosition: {x: 0, y: 0.507, z: -0.027}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4325057652621090}
@@ -158,7 +158,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 7753d5e2d8c1935459014d238b14195a, type: 2}
+  - {fileID: 2100000, guid: e1eb32fa7aca3fa4cb7c420db5be8f50, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -216,7 +216,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ec5cf00ca181d45a42ba1870e148c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsWalking: 0
+  IsWalking: 1
   WalkSpeed: 5
   RunSpeed: 8
   RunstepLenghten: 0.5
@@ -333,8 +333,8 @@ MonoBehaviour:
     lockCursor: 1
   UseFovKick: 0
   FovKick:
-    Camera: {fileID: 0}
-    originalFov: 0
+    Camera: {fileID: 20489989782277704}
+    originalFov: 60
     FOVIncrease: 3
     TimeToIncrease: 1
     TimeToDecrease: 1
@@ -390,10 +390,11 @@ MonoBehaviour:
     BobAmount: 0
   StepInterval: 5
   FootstepSounds:
-  - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
   - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
+  - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
   JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+  holdingDistance: 2.5
 --- !u!124 &124322024707859156
 Behaviour:
   m_ObjectHideFlags: 1
@@ -401,8 +402,8 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1728241634657412}
   m_Enabled: 1
---- !u!135 &135211915657872358
-SphereCollider:
+--- !u!136 &136237539971222438
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -410,8 +411,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.17123121
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &143320049197828366
 CharacterController:

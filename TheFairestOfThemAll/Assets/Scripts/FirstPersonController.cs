@@ -33,6 +33,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		[SerializeField] private AudioClip LandSound;
 		// the sound played when character touches back on ground.
 
+		public float holdingDistance=2.5f;
+
 		private float OriginalSpeed;
 		private Camera Camera;
 		private bool Jump;
@@ -110,7 +112,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 			Movable movingScript = null;
 			RaycastHit hitInfo;
-			if (Physics.Raycast (Camera.transform.position, Camera.transform.forward, out hitInfo, 1.5f)) {
+			if (Physics.Raycast (Camera.transform.position, Camera.transform.forward, out hitInfo, holdingDistance)) {
 				GameObject aming = hitInfo.collider.gameObject;
 				movingScript = aming.GetComponentInParent<Movable> ();
 			}
@@ -194,7 +196,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				CollisionFlags = CharacterController.Move (MoveDir * Time.fixedDeltaTime);
 			if (Holding != null) {
 				WalkSpeed = Holding.Follow (transform.position)? 1f: OriginalSpeed;
-				if ((Holding.myCollider.ClosestPoint(transform.position)-transform.position).magnitude >=1.5) {
+				if ((Holding.myCollider.ClosestPoint(Camera.transform.position)-Camera.transform.position).magnitude >= holdingDistance) {
 					WalkSpeed = OriginalSpeed;
 					overlayEffect.DropEffect(Holding.LetGo ());
 					Holding = null;
