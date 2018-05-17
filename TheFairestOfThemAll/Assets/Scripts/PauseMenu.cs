@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class PauseMenu : MonoBehaviour {
+/** Activate deactivate pause screen */
+public class PauseMenu : MonoBehaviour
+{
 
 	private FirstPersonController player;
 	private Puzzle puzzle;
@@ -15,25 +17,27 @@ public class PauseMenu : MonoBehaviour {
 	private GameObject pauseScreen;
 
 	// Use this for initialization
-	void Start () {
-		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController>();
+	void Start ()
+	{
+		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ();
 		puzzle = GameObject.Find ("Puzzle").GetComponent<Puzzle> ();
 		overlay = GameObject.FindGameObjectWithTag ("Overlay");
 		pauseScreen = transform.Find ("PauseScreen").gameObject;
-		pauseScreen.SetActive(false);
+		pauseScreen.SetActive (false);
 		paused = false;
 		wasDown = false;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		if (CrossPlatformInputManager.GetButtonDown ("Pause")) {
 			if (!paused && !wasDown) {
 				pauseStartTime = Time.time;
 				player.enabled = false;
 				puzzle.enabled = false;
 				overlay.SetActive (false);
-				pauseScreen.SetActive(true);
+				pauseScreen.SetActive (true);
 				Cursor.lockState = CursorLockMode.None;
 				Cursor.visible = true;
 				paused = true;
@@ -45,12 +49,13 @@ public class PauseMenu : MonoBehaviour {
 			wasDown = false;
 	}
 
-	public void Unpause(){
+	public void Unpause ()
+	{
 		player.enabled = true;
 		puzzle.enabled = true;
 		puzzle.ReturnFromNap (Time.time - pauseStartTime);
 		overlay.SetActive (true);
-		pauseScreen.SetActive(false);
+		pauseScreen.SetActive (false);
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 		paused = false;

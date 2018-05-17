@@ -1,4 +1,4 @@
- using System;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
+	/** Control player character. (Modified FirstPersonController class from Unity standard assets) */
 	[RequireComponent (typeof(CharacterController))]
 	[RequireComponent (typeof(AudioSource))]
 	public class FirstPersonController : MonoBehaviour
@@ -33,35 +34,35 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		[SerializeField] private AudioClip LandSound;
 		// the sound played when character touches back on ground.
 
-		public float holdingDistance=2.5f;
+		public float holdingDistance = 2.5f;
 
-		private float OriginalSpeed;
+		private AudioSource AudioSource;
 		private Camera Camera;
-		private bool Jump;
-		private Movable Holding;
-		private bool WasHoldingHoldDown;
-		private bool WasHoldingRDown;
-		private bool RotateMode;
-		private float YRotation;
-		private Vector2 input;
-		private Vector3 MoveDir = Vector3.zero;
 		private CharacterController CharacterController;
 		private CollisionFlags CollisionFlags;
-		private bool PreviouslyGrounded;
-		private Vector3 OriginalCameraPosition;
-		private float StepCycle;
-		private float NextStep;
-		private bool Jumping;
-		private AudioSource AudioSource;
+		private Movable Holding;
 		private OverlayEffects overlayEffect;
-		private float FOV;
+		private Vector2 input;
+		private Vector3 MoveDir = Vector3.zero;
+		private Vector3 OriginalCameraPosition;
+		private bool Jump;
+		private bool Jumping;
+		private bool PreviouslyGrounded;
+		private bool RotateMode;
+		private bool WasHoldingHoldDown;
+		private bool WasHoldingRDown;
 		private bool giveUp = false;
+		private float FOV;
+		private float NextStep;
+		private float OriginalSpeed;
+		private float StepCycle;
+		private float YRotation;
 		// Use this for initialization
 		private void Start ()
 		{
 			CharacterController = GetComponent<CharacterController> ();
 			Camera = GetComponentInChildren<Camera> ();
-			Camera.enabled=true;
+			Camera.enabled = true;
 			FOV = Camera.fieldOfView;
 			OriginalCameraPosition = Camera.transform.localPosition;
 			FovKick.Setup (Camera);
@@ -75,7 +76,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			AudioSource = GetComponent<AudioSource> ();
 			MouseLook.Init (transform, Camera.transform);
 			OriginalSpeed = WalkSpeed;
-			overlayEffect = GameObject.FindGameObjectWithTag("Overlay").GetComponentInChildren<OverlayEffects>(true);	
+			overlayEffect = GameObject.FindGameObjectWithTag ("Overlay").GetComponentInChildren<OverlayEffects> (true);	
 		}
 
 
@@ -88,7 +89,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				if (!WasHoldingRDown && RDown) {
 					RotateMode = !RotateMode;
 					overlayEffect.RotateEffect (RotateMode);
-					print("rotate Toggle!");
+					print ("rotate Toggle!");
 				}
 				WasHoldingRDown = RDown;
 			}
@@ -116,31 +117,31 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				GameObject aming = hitInfo.collider.gameObject;
 				movingScript = aming.GetComponentInParent<Movable> ();
 			}
-			overlayEffect.AimActive (movingScript!=null && Holding==null);
+			overlayEffect.AimActive (movingScript != null && Holding == null);
 
 			bool holdIsDown = CrossPlatformInputManager.GetButtonDown ("Hold");
 			//if not pressing e previous frame, but is now
 			if (!WasHoldingHoldDown && holdIsDown) {
 				if (Holding == null) {
 					
-						if (movingScript != null) {
-							Holding = movingScript;
-							WalkSpeed = Holding.Pickup (transform.position) ? 0.5f:OriginalSpeed;
-							MovableBeacon beacon = Holding as MovableBeacon;
-							if (beacon != null) {
-								beacon.Inactivate();
-							}
-							print ("Pickup");
-							overlayEffect.HoldEffect();
+					if (movingScript != null) {
+						Holding = movingScript;
+						WalkSpeed = Holding.Pickup (transform.position) ? 0.5f : OriginalSpeed;
+						MovableBeacon beacon = Holding as MovableBeacon;
+						if (beacon != null) {
+							beacon.Inactivate ();
 						}
+						print ("Pickup");
+						overlayEffect.HoldEffect ();
+					}
 					
 				} else {
 					WalkSpeed = OriginalSpeed;
 					MovableBeacon beacon = Holding as MovableBeacon;
 					if (beacon != null) {
-						overlayEffect.CorrectEffect(beacon.LetGo (transform.position));
-					}else 
-						overlayEffect.CorrectEffect(Holding.LetGo ());
+						overlayEffect.CorrectEffect (beacon.LetGo (transform.position));
+					} else
+						overlayEffect.CorrectEffect (Holding.LetGo ());
 					Holding = null;
 					RotateMode = false;
 					print ("LetDown");
@@ -174,39 +175,39 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				MoveDir.x = desiredMove.x * speed;
 				MoveDir.z = desiredMove.z * speed;
 			} else {
-				Holding.Adjust (CrossPlatformInputManager.GetAxisRaw("Horizontal"), 
+				Holding.Adjust (CrossPlatformInputManager.GetAxisRaw ("Horizontal"), 
 					CrossPlatformInputManager.GetAxisRaw ("Vertical"), 
 					CrossPlatformInputManager.GetAxisRaw ("VerticalRotate"));
 				speed = 0;
 				MoveDir.x = 0;
 				MoveDir.z = 0;
 			}
-				if (CharacterController.isGrounded) {
-					MoveDir.y = -StickToGroundForce;
+			if (CharacterController.isGrounded) {
+				MoveDir.y = -StickToGroundForce;
 
-					if (Jump) {
-						MoveDir.y = JumpSpeed;
-						PlayJumpSound ();
-						Jump = false;
-						Jumping = true;
-					}
-				} else {
-					MoveDir += Physics.gravity * GravityMultiplier * Time.fixedDeltaTime;
+				if (Jump) {
+					MoveDir.y = JumpSpeed;
+					PlayJumpSound ();
+					Jump = false;
+					Jumping = true;
 				}
-				CollisionFlags = CharacterController.Move (MoveDir * Time.fixedDeltaTime);
+			} else {
+				MoveDir += Physics.gravity * GravityMultiplier * Time.fixedDeltaTime;
+			}
+			CollisionFlags = CharacterController.Move (MoveDir * Time.fixedDeltaTime);
 			if (Holding != null) {
-				WalkSpeed = Holding.Follow (transform.position)? 1f: OriginalSpeed;
-				if ((Holding.myCollider.ClosestPoint(Camera.transform.position)-Camera.transform.position).magnitude >= holdingDistance) {
+				WalkSpeed = Holding.Follow (transform.position) ? 1f : OriginalSpeed;
+				if ((Holding.myCollider.ClosestPoint (Camera.transform.position) - Camera.transform.position).magnitude >= holdingDistance) {
 					WalkSpeed = OriginalSpeed;
-					overlayEffect.DropEffect(Holding.LetGo ());
+					overlayEffect.DropEffect (Holding.LetGo ());
 					Holding = null;
 					RotateMode = false;
 					print ("Dropped");
 				}
 			}
 
-				ProgressStepCycle (speed);
-				UpdateCameraPosition (speed);
+			ProgressStepCycle (speed);
+			UpdateCameraPosition (speed);
 
 			MouseLook.UpdateCursorLock ();
 			

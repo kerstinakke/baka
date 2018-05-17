@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OverlayEffects : MonoBehaviour {
+/** Different effects to give player feedback */
+public class OverlayEffects : MonoBehaviour
+{
 
 	[SerializeField]private GameObject rotateEffect;
 	[SerializeField]private GameObject holdEffect;
@@ -12,17 +14,20 @@ public class OverlayEffects : MonoBehaviour {
 	[SerializeField]private GameObject aimActive;
 	private static Text timeText;
 
-	void Start(){
-		timeText = transform.Find ("Time").GetComponent<Text>();
+	void Start ()
+	{
+		timeText = transform.Find ("Time").GetComponent<Text> ();
 	}
 
-	public void HoldEffect(){
+	public void HoldEffect ()
+	{
 		rotateEffect.SetActive (false);
 		holdEffect.SetActive (true);
 		correctEffect.SetActive (false);
 	}
 
-	public void RotateEffect(bool rotateMode){
+	public void RotateEffect (bool rotateMode)
+	{
 		if (!rotateMode) {
 			HoldEffect ();
 			return;
@@ -32,26 +37,30 @@ public class OverlayEffects : MonoBehaviour {
 		correctEffect.SetActive (false);
 	}
 
-	public void CorrectEffect(bool playCorrect){
+	public void CorrectEffect (bool playCorrect)
+	{
 		rotateEffect.SetActive (false);
 		holdEffect.SetActive (false);
-		if(playCorrect)
+		if (playCorrect)
 			correctEffect.SetActive (true);
 	}
 
-	public void DropEffect(bool playCorrect){
+	public void DropEffect (bool playCorrect)
+	{
 		rotateEffect.SetActive (false);
 		holdEffect.SetActive (false);
-		if(playCorrect)
+		if (playCorrect)
 			correctEffect.SetActive (true);
 		dropEffect.SetActive (true);
 	}
 
-	public void AimActive(bool activate){
+	public void AimActive (bool activate)
+	{
 		aimActive.SetActive (activate);
 	}
-		
-	public static void ShowTime(string time){
+
+	public static void ShowTime (string time)
+	{
 		timeText.text = time;
 	}
 

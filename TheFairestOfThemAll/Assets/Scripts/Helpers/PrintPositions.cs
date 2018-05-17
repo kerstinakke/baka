@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/** print current positions for movables */
 [ExecuteInEditMode]
-public class PrintPositions : MonoBehaviour {
+public class PrintPositions : MonoBehaviour
+{
 
 	// Update is called once per frame
-	void Start () {
+	void Start ()
+	{
 		foreach (Movable m in GetComponentsInChildren<Movable>()) {
 			//m.correctPos = m.transform.position;
-			Debug.Log(m.name +" ("+m.transform.position.x+", "+m.transform.position.y+", "+m.transform.position.z+")");
+			Debug.Log (m.name + " (" + m.transform.position.x + ", " + m.transform.position.y + ", " + m.transform.position.z + ")");
 		}
 	}
 }

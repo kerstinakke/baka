@@ -5,7 +5,7 @@ using UnityEngine;
 using Emgu.CV;
 using Emgu.CV.Structure;
 using Emgu.CV.CvEnum;
-
+/** Functions for converting images between Unity and EmguCV */
 public static class ImageHelper
 {
 

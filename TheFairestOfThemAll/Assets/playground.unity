@@ -274,6 +274,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4485879769862118, guid: 6872c2653dd6a3c4089c548f7a4d28f9,
     type: 2}
   m_PrefabInternal: {fileID: 230765762}
+--- !u!114 &302021027 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114552130421356476, guid: 5c2348ab11b2bc348b396a771b815822,
+    type: 2}
+  m_PrefabInternal: {fileID: 1978244745}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &400933171
 Prefab:
   m_ObjectHideFlags: 0
@@ -638,6 +644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 762619649}
   - component: {fileID: 762619650}
+  - component: {fileID: 762619651}
   m_Layer: 0
   m_Name: Puzzle
   m_TagString: Untagged
@@ -678,6 +685,19 @@ MonoBehaviour:
   templateImageTexture: {fileID: 2800000, guid: f565dbc3e68bbff41934871359143389,
     type: 3}
   maskTexture: {fileID: 2800000, guid: f95a7e9f6b4771844830093d3e9ab9ae, type: 3}
+--- !u!114 &762619651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 762619648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a2e0ec3fc959124a867d1f1baa8c858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  submitText: {fileID: 302021027}
+  done: 0
 --- !u!4 &798260029
 Transform:
   m_ObjectHideFlags: 0

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExitGame : MonoBehaviour {
+/** Save and quit */
+public class ExitGame : MonoBehaviour
+{
 
-	public void QuitGame(){
+	public void QuitGame ()
+	{
 		PlayerPrefs.Save ();
 		Application.Quit ();
 	}

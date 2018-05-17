@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movable : MonoBehaviour {
+/** Class for movable objects */
+public class Movable : MonoBehaviour
+{
 
-	protected Vector3 offset = new Vector3();
+	protected Vector3 offset = new Vector3 ();
 	public Collider myCollider;
 	protected Vector3 colliderOffset;
 	private bool isRotating;
@@ -16,9 +18,10 @@ public class Movable : MonoBehaviour {
 	protected float slow = 4f;
 	protected float rotAngle = 45f;
 
-	public void Start(){
+	public void Start ()
+	{
 		myCollider = GetComponentInChildren<Collider> ();
-		colliderOffset =  myCollider.bounds.center-transform.position;
+		colliderOffset = myCollider.bounds.center - transform.position;
 		isRotating = false;
 		body = transform.Find ("Body");
 		GameObject propertiesObject = GameObject.FindWithTag ("Properties");
@@ -31,16 +34,18 @@ public class Movable : MonoBehaviour {
 		//transform.position = correctPos;
 	}
 
-	public virtual bool Pickup (Vector3 pos){
-		offset = transform.position-pos;
+	public virtual bool Pickup (Vector3 pos)
+	{
+		offset = transform.position - pos;
 		originalY = offset.y;
 		myCollider.gameObject.layer = LayerMask.NameToLayer ("Movable");
 		return WithinLimits (slow);
 	}
 
-	public virtual bool LetGo (){
+	public virtual bool LetGo ()
+	{
 		myCollider.gameObject.layer = LayerMask.NameToLayer ("Default");
-		print (WithinLimits (posError)+" "+correctPos+" "+transform.position);
+		print (WithinLimits (posError) + " " + correctPos + " " + transform.position);
 		if (WithinLimits (posError)) {
 			transform.position = correctPos;
 			return true;
@@ -48,48 +53,48 @@ public class Movable : MonoBehaviour {
 			return false;
 	}
 
-	public virtual bool Follow(Vector3 pos){
-		//Gizmos.DrawCube (pos + offset + colliderOffset, myCollider.bounds.size);
-		if (!Physics.CheckBox (pos + offset + colliderOffset, myCollider.bounds.extents,Quaternion.identity, LayerMask.GetMask ("Default")))
+	public virtual bool Follow (Vector3 pos)
+	{
+		if (!Physics.CheckBox (pos + offset + colliderOffset, myCollider.bounds.extents, Quaternion.identity, LayerMask.GetMask ("Default")))
 			transform.position = pos + offset;
 		else
 			offset = transform.position - pos;
 		return WithinLimits (slow);
 	}
 
-	public virtual void Adjust(float horizontalRot, float vertical, float verticalRot){
+	public virtual void Adjust (float horizontalRot, float vertical, float verticalRot)
+	{
 		Vector3 rotDir = new Vector3 (0, horizontalRot * rotAngle, verticalRot * rotAngle);
-		if(!isRotating && rotDir.magnitude!=0)
-			StartCoroutine(ExecuteRotation( body.eulerAngles, body.eulerAngles + rotDir,rotAngle/90f));
-		if(vertical!=0){
+		if (!isRotating && rotDir.magnitude != 0)
+			StartCoroutine (ExecuteRotation (body.eulerAngles, body.eulerAngles + rotDir, rotAngle / 90f));
+		if (vertical != 0) {
 			Vector3 newOffset = offset + new Vector3 (0, vertical * speed * Time.deltaTime);
-			if (!Physics.CheckBox (transform.position + colliderOffset+new Vector3 (0, vertical * speed * Time.deltaTime), myCollider.bounds.extents,Quaternion.identity, LayerMask.GetMask ("Default"))) {
+			if (!Physics.CheckBox (transform.position + colliderOffset + new Vector3 (0, vertical * speed * Time.deltaTime), myCollider.bounds.extents, Quaternion.identity, LayerMask.GetMask ("Default"))) {
 				offset = newOffset;
 			}
 		}
 	}
 
-	protected virtual bool WithinLimits(float error){
-		if ((transform.position-correctPos).magnitude <= error) {
+	protected virtual bool WithinLimits (float error)
+	{
+		if ((transform.position - correctPos).magnitude <= error) {
 			return true;
 		}
 		return false;
 	}
 
-	protected IEnumerator ExecuteRotation(Vector3 from, Vector3 to, float duration)
+	protected IEnumerator ExecuteRotation (Vector3 from, Vector3 to, float duration)
 	{
-		if (duration < float.Epsilon)
-		{
+		if (duration < float.Epsilon) {
 			body.eulerAngles = to;
 			yield break;
 		}
 
 		isRotating = true;
 		float agregate = 0;
-		while (agregate < 1f)
-		{
+		while (agregate < 1f) {
 			agregate += Time.deltaTime / duration;
-			body.eulerAngles = Vector3.Lerp(from, to, agregate);
+			body.eulerAngles = Vector3.Lerp (from, to, agregate);
 			yield return null;
 		}
 		isRotating = false;
