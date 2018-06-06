@@ -19,7 +19,7 @@ public class Puzzle : MonoBehaviour
 	private MovableBeacon levelBeacon;
 	private bool wasFocus;
 	private Camera FPCamera;
-	private SendFeedback sender;
+	//private SendFeedback sender;
 	[SerializeField] private bool solved = false;
 	[SerializeField] private float accuracy = 0.9f;
 	[SerializeField] Texture2D templateImageTexture;
@@ -34,7 +34,7 @@ public class Puzzle : MonoBehaviour
 		templateImage = ImageHelper.ToImage (templateImageTexture);
 		mask = ImageHelper.ToImage (maskTexture);
 		startTime = Time.time;
-		sender = GetComponent<SendFeedback> ();
+		//sender = GetComponent<SendFeedback> ();
 	}
 	
 	// Update is called once per frame
@@ -86,7 +86,9 @@ public class Puzzle : MonoBehaviour
 				OverlayEffects.ShowTime (formatTime (currentTime) + "\nBest time: " + formatTime (PlayerPrefs.GetFloat (levelName)));
 			}
 			PlayerPrefs.Save ();
-			sender.SendTime (levelName, currentTime);
+            //sender.SendTime (levelName, currentTime);
+            if(Application.isEditor)
+                RotRememberer.WriteString(gameObject);
 			StartCoroutine ("NextLevel");
 		}
 	}
@@ -94,7 +96,8 @@ public class Puzzle : MonoBehaviour
 		
 	private IEnumerator NextLevel ()
 	{
-		while (!sender.done) {
+        float pass = Time.time + 2;
+		while (!RotRememberer.done || Time.time < pass) {
 			yield return new WaitForSeconds (0.1f);
 		}
 		int nextSceneIndex = SceneManager.GetActiveScene ().buildIndex + 1;

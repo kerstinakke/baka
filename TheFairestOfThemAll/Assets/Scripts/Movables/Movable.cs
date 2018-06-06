@@ -11,7 +11,7 @@ public class Movable : MonoBehaviour
 	protected Vector3 colliderOffset;
 	private bool isRotating;
 	private float originalY;
-	private Transform body;
+	protected Transform body;
 	protected float speed = 0.5f;
 	[SerializeField]protected Vector3 correctPos;
 	protected float posError = 0.5f;
@@ -31,7 +31,7 @@ public class Movable : MonoBehaviour
 			slow = properties.slow;
 			rotAngle = properties.rotAngle;
 		}
-		//transform.position = correctPos;
+		
 	}
 
 	public virtual bool Pickup (Vector3 pos)
@@ -45,7 +45,7 @@ public class Movable : MonoBehaviour
 	public virtual bool LetGo ()
 	{
 		myCollider.gameObject.layer = LayerMask.NameToLayer ("Default");
-		print (WithinLimits (posError) + " " + correctPos + " " + transform.position);
+		//print (WithinLimits (posError) + " " + correctPos + " " + transform.position);
 		if (WithinLimits (posError)) {
 			transform.position = correctPos;
 			return true;
