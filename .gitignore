@@ -13,7 +13,9 @@
 **/Assets/AssetStoreTools*
 *.apk
 *.unitypackage
-*/Lightmap*
+**/Lightmap*
+**/Lighting*
+**/Reflection*
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #

@@ -6,26 +6,33 @@ using UnityEngine;
 public class Movable : MonoBehaviour
 {
 
-	protected Vector3 offset = new Vector3 ();
-	public Collider myCollider;
+    [SerializeField] protected Vector3 correctPos;
+    [SerializeField] protected AudioClip snapSound;
+    public Collider myCollider;
+
+    protected Vector3 offset = new Vector3 ();
 	protected Vector3 colliderOffset;
-	private bool isRotating;
-	private float originalY;
 	protected Transform body;
 	protected float speed = 0.5f;
-	[SerializeField]protected Vector3 correctPos;
-	protected float posError = 0.5f;
+    protected float posError = 0.5f;
 	protected float slow = 4f;
 	protected float rotAngle = 45f;
+    protected AudioSource audioSource;
 
-	public void Start ()
+    private bool isRotating;
+    private float originalY;
+
+    public void Start ()
 	{
-		myCollider = GetComponentInChildren<Collider> ();
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = snapSound;
+        myCollider = GetComponentInChildren<Collider> ();
 		colliderOffset = myCollider.bounds.center - transform.position;
-		isRotating = false;
-		body = transform.Find ("Body");
-		GameObject propertiesObject = GameObject.FindWithTag ("Properties");
-		if (propertiesObject != null) {
+        body = transform.Find("Body");
+        isRotating = false;
+
+        GameObject propertiesObject = GameObject.FindWithTag("Properties");
+        if (propertiesObject != null) {
 			LevelMovableProps properties = propertiesObject.GetComponent<LevelMovableProps> ();
 			posError = properties.AllowedPosError;
 			slow = properties.slow;

@@ -27,12 +27,12 @@ public class MovablePiece : Movable
         if (WithinLimits(posError))
         {
             transform.position = correctPos;
+            audioSource.Play();
         }
         else
             both = false;
         if (RotWithinLimits(rotError))
         {
-            body.localEulerAngles = correctRot;
             both = (both && true);
         }
         else
