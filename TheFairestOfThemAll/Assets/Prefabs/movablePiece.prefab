@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57bdd5e132e692348ba33e3eb3fb71c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myCollider: {fileID: 0}
   correctPos: {x: 9.4, y: 6.3, z: 8.1}
+  snapSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+  myCollider: {fileID: 0}
   correctRot: {x: 0, y: 0, z: 0}

@@ -23,21 +23,21 @@ public class MovablePiece : Movable
     {
         myCollider.gameObject.layer = LayerMask.NameToLayer("Default");
         //print (WithinLimits (posError) + " " + correctPos + " " + transform.position);
-        bool both = true;
+        bool posCorrect = false;
+        bool rotCorrect = false;
         if (WithinLimits(posError))
         {
             transform.position = correctPos;
             audioSource.Play();
+            posCorrect = true;
         }
-        else
-            both = false;
         if (RotWithinLimits(rotError))
         {
-            both = (both && true);
+            rotCorrect = true;
         }
-        else
-            both = false;
-        return both;
+        if ((posCorrect || rotCorrect) && !(posCorrect && rotCorrect))
+            OverlayEffects.halfCorrect();
+        return posCorrect || rotCorrect;
     }
 
     protected virtual bool RotWithinLimits(float error)

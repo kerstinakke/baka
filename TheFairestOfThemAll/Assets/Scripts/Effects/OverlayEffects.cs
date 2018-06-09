@@ -13,10 +13,12 @@ public class OverlayEffects : MonoBehaviour
 	[SerializeField]private GameObject dropEffect;
 	[SerializeField]private GameObject aimActive;
 	private static Text timeText;
+    private static OverlayEffects instance;
 
 	void Start ()
 	{
 		timeText = transform.Find ("Time").GetComponent<Text> ();
+        instance = this;
 	}
 
 	public void HoldEffect ()
@@ -63,5 +65,11 @@ public class OverlayEffects : MonoBehaviour
 	{
 		timeText.text = time;
 	}
+
+    public static void halfCorrect() {
+        instance.correctEffect.SetActive(true);
+        instance.correctEffect.GetComponent<ImageEffects>().SetTempColor(new Color(0.5f,0.5f,0,0.5f));
+        instance.correctEffect.SetActive(false);
+    }
 
 }

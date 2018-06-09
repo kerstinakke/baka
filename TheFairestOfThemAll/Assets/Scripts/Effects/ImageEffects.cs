@@ -8,21 +8,26 @@ public class ImageEffects : MonoBehaviour
 {
 
 	private Image image;
-	private Color defaultColor;
+	private Color startColor;
+    private Color defaultColor;
 	[SerializeField] private bool fadingOnce = false;
 	private float change = 0.15f;
+    private float alpha;
 
 
 	// Use this for initialization
 	void Awake ()
 	{
 		image = GetComponent<Image> ();
-		defaultColor = image.color;
+        defaultColor = image.color;
+        startColor = image.color;
 	}
 
 	void OnEnable ()
 	{
-		image.color = defaultColor;
+		image.color = startColor;
+        alpha = startColor.a;
+        startColor = defaultColor;
 		if (fadingOnce)
 			StartCoroutine ("Fade");
 	}
@@ -32,7 +37,7 @@ public class ImageEffects : MonoBehaviour
 	{
 		if (fadingOnce)
 			return;
-		if (image.color.a <= 0.2f || image.color.a >= defaultColor.a)
+		if (image.color.a <= 0.2f || image.color.a >= alpha)
 			change *= -1;
 		image.color += new Color (0f, 0f, 0f, change * Time.deltaTime);
 	}
@@ -47,4 +52,8 @@ public class ImageEffects : MonoBehaviour
 		}
 		gameObject.SetActive (false);
 	}
+
+    public void SetTempColor(Color temp) {
+        startColor = temp;
+    }
 }
